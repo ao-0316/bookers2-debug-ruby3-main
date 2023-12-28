@@ -26,6 +26,20 @@
               <% if @book.user == current_user %>
               <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
               <% end %>
+
+              <% if @book.favorited_by?(current_user) %>
+              <p>
+                <%= link_to book_favorite_path(@book), method: :delete do %>
+                  ♥<%= @book.favorites.count %> いいね
+                <% end %>
+              </p>
+              <% else %>
+              <p>
+                <%= link_to book_favorite_path(@book), method: :post do %>
+                  ♡<%= @book.favorites.count %> いいね
+                <% end %>
+              </p>
+            <% end %>
               </td>
         </tr>
       </table>
