@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   
   has_many :favorites, dependent: :destroy
+  
+  has_many :books, class_name: "モデル名", foreign_key: "○○_id", dependent: :destroy
 
   has_one_attached :profile_image
 
