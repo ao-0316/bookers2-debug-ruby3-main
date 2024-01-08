@@ -17,6 +17,15 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
+          
+          <td id="favorite_btn_<%= @book.id %>">
+             <%= render "favorites/btn", book: @book %>
+             </td>
+           
+           <td id="comment_counter">
+             <%= render "book_comments/counter", book: @book %>
+             </td>
+          
             <td>
               <% if @book.user == current_user %>
               <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>
@@ -25,32 +34,12 @@
             <td>
               <% if @book.user == current_user %>
               <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
-              <% end %>
-
-
-
-              <td id="favorite_btn_<%= @book.id %>">
-             <%= render "favorites/btn", book: @book %>
-             </td> 
-
-
-            <div>
-              <p>コメント件数：<%= @book.book_comments.count %></p>
-              <% @book.book_comments.each do |book_comment| %>
-                <p><%= image_tag book_comment.user.get_profile_image %></p>
-                <%= book_comment.user.name %>
-                <%= book_comment.created_at.strftime('%Y/%m/%d') %><%= book_comment.comment %>
-                <% if book_comment.user == current_user %>
-                  <%= link_to "削除", book_book_comment_path(book_comment.book,book_comment), method: :delete %>
-                <% end %>
-              <% end %>
+              <% end %></td>
+            <td><div id="comment_index">
+             <%= render "book_comments/index", book: @book %>
             </div>
-            <div>
-              <%= form_with model: [@book, @book_comment] do |f| %>
-                <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-                <%= f.submit "送信する" %>
-              <% end %>
-            </div>
+            <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+                      
               </td>
         </tr>
       </table>
