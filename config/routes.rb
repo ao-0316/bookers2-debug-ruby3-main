@@ -13,6 +13,8 @@ Rails.application.routes.draw do
    resources :book_comments, only: [:create, :destroy]
  end
   resources :users, only: [:index,:show,:edit,:update]
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show]
   
   # ネストさせる
   resources :users do
