@@ -22,6 +22,7 @@
         </td>  
         
         <td><%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></td>
+        <td><%= render "books/static.rate", book: book %></td>
       </tr>
     <% end %>
   </tbody>
